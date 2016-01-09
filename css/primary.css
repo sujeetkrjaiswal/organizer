@@ -1,0 +1,205 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+body{
+    overflow-x:hidden;
+}
+.dottedUnderline{
+    border-bottom: 1px dotted #000;
+    text-decoration: none;
+}
+.txtJustify{
+    text-align: justify;
+}
+.txtCenter{
+    text-align: center;
+}
+.cursorChange:hover{
+    cursor: pointer;
+}
+.fw900{
+    font-weight: 900;
+}
+.wid100{
+    width: 100%;
+}
+.padd15{
+    padding: 15px;
+}
+.appContainer{
+    min-height: 100vh;
+}
+.editBG{
+    background-color: rgba(150,150,150,0.5);
+    padding: 10px;
+}
+/*icon sizing : 24 is default*/
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/*Color Codes*/
+.color1{
+    color: rgb(63, 81, 181);
+}
+/*Configuration classes for personalized backgrounds*/
+.configBG1{
+    background-color: rgb(3, 201, 169) !important;
+}
+.configBG2{
+    background-color:#2299dd !important;
+}
+.configBG3{
+    background-color: #9595E4 !important;
+}
+.configBG4{
+    background-color: #D91E18 !important;
+}
+.configBG5{
+    background-color: #666666  !important;
+}
+.configBG6{
+    background-color: #FFC543 !important;
+}
+/*For config-select*/
+.configBG1C{
+    color: rgb(3, 201, 169) !important;
+}
+.configBG2C{
+    color: #2299dd !important;
+}
+.configBG3C{
+    color: #9595E4 !important;
+}
+.configBG4C{
+    color: #D91E18 !important;
+}
+.configBG5C{
+    color: #666666 !important;
+}
+.configBG6C{
+    color: #FFC543 !important;
+}
+/*Banner Bar*/
+.bannerTitle{
+    font-family: 'Gloria Hallelujah', cursive;
+}
+/*home Page*/
+.homeCover{
+    min-height: 80vh;
+    width: 100%;
+}
+.homeAppName{
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size:5em;
+    text-align: center;
+    overflow: hidden;
+}
+.homeAppName  .material-icons{
+    font-size: 1em;
+}
+.tagline{
+    font-family: 'Gloria Hallelujah', cursive;
+    text-align: center;
+    font-size: 1.5em;
+}
+.letsPlanBtn{
+    text-align: center;
+    font-family: monospace;
+    font-size: 2.5em;
+    margin-top: 15px;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: #2098d1;
+}
+.letsPlanBtn .material-icons{
+    font-size: 1em;
+}
+.letsPlanBtn:hover{
+    box-shadow: #2098d1 3px 3px 15px;
+    cursor: pointer;
+}
+.appDesc{
+    text-align: center;
+    font-family: monospace;
+    margin: 10%;
+    font-size: 1.2em;
+}
+.appDesc h2{
+    font-family: 'Gloria Hallelujah', cursive;
+}
+#quoteContainer{
+    text-align: center;
+    font-family: 'Gloria Hallelujah', cursive;
+}
+.featureList{
+    padding: 15px;
+}
+.featureList > div{
+    padding:0px 15px;
+}
+.featureList h2{
+    text-align: center;
+    margin: 5px;
+}
+.featureList p{
+    text-align: justify;
+    font-color:#444;
+}
+.featureIcon{
+    min-height: 75px;
+}
+/**/
+
+
+
+/*Board List Page*/
+
+.boardItem,.boardINewtem,.tlItem{
+    min-height: 100px;
+    width: 96%;
+    margin: 2%;
+    padding:5px 15px;
+    background-color: rgb(3, 201, 169);
+    color: #FFFFFF;
+}
+.boardItem h2,.boardINewtem h2{
+    margin:25px 10px;
+    text-align: center;
+}
+.clickable{
+    transition: 0.5s linear all;
+}
+.clickable:hover{
+    cursor: pointer;
+    transition: 0.5s linear all;
+    transform: scale(1.1);
+}
+
+/*TaskList Item*/
+.tlItem h2{
+    text-align: center;
+}
+
+.taskContainer{
+    position: relative;
+}
+.taskConfirmDel{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+}
+
+/*Search*/
+.searchBreadCrum{
+    color:#444444;
+}
+.searchBreadCrum span{
+    cursor: pointer;
+}

@@ -1,0 +1,104 @@
+<div layout="row" layout-align="center center" class="homeCover">
+    <div>
+        <div class="homeAppName">
+        <span class="animated bounceIn"
+              ng-mouseenter="hoverName = true"
+              ng-mouseleave="hoverName = false">
+            <span class="animated color1" ng-class="{jello: hoverName}">Organizer</span>
+            <md-icon class="material-icons animated color1" ng-class="{jello: hoverName}">speaker_notes</md-icon>
+        </span>
+        </div>
+        <div class="tagline animated">
+        <span ng-class="{pulse: hoverTag}" class="animated infinite"
+              ng-mouseenter="hoverTag = true"
+              ng-mouseleave="hoverTag = false">
+            The all-in-one To-Do List organizer
+        </span>
+
+        </div>
+        <br />
+        <br />
+        <div layout="row" layout-align="center center">
+        <span class="letsPlanBtn hvr-back-pulse" ng-click="letsPlan();"
+              ng-mouseenter="hoverFwd = true"
+              ng-mouseleave="hoverFwd = false">
+            &nbsp;Lets Plan
+            <md-icon class="material-icons animated infinite" ng-class="{tada: hoverFwd}">forward</md-icon>
+        </span>
+        </div>
+        <div id="quoteContainer">
+            <span style="font-size: 1.25em; color: #FF8C00;"> because </span>
+            <span style="font-size: 2.00em; color: #6BC583;"> Good </span>
+            <span style="font-size: 3.00em; color: #6BC583;"> Luck </span>
+            <span style="font-size: 1.75em; color: #FFA500;"> is the </span>
+            <span style="font-size: 2.00em; color: #2098d1;"> result </span>
+            <span style="font-size: 1.25em; color: #FFA500;"> of </span>
+            <span style="font-size: 2.50em; color: #9595E4;"> Good </span>
+            <span style="font-size: 3.00em; color: #9595E4;"> Planning </span>
+        </div>
+    </div>
+</div>
+
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <span flex></span>
+        <h2>Features</h2>
+        <span flex></span>
+    </div>
+</md-toolbar>
+<br />
+<div layout="row" layout-wrap layout-fill class="featureList" >
+    <div flex-sm="100"  flex-md="50" flex-lg="33" flex-gt-lg="33" layout="column" layout-align="start center" >
+        <div layout="row" layout-align="center center" class="featureIcon">
+            <i class="material-icons md-48">blur_linear</i>
+        </div>
+        <h2 >Distraction Free Design</h2>
+        <p >Helps you focus on whats important</p>
+    </div>
+    <div flex-sm="100"  flex-md="50" flex-lg="33" flex-gt-lg="33" layout="column" layout-align="start center" >
+        <div layout="row" layout-align="center center" class="featureIcon">
+            <i class="material-icons md-48">devices</i>
+        </div>
+        <h2>Responsive</h2>
+        <p>It's mobile ready. Try it now on your phones browser.</p>
+    </div>
+    <div flex-sm="100"  flex-md="50" flex-lg="33" flex-gt-lg="33" layout="column" layout-align="start center" >
+        <div layout="row" layout-align="center center" class="featureIcon">
+            <i class="material-icons md-48">offline_pin</i>
+        </div>
+        <h2>Offline data storage</h2>
+        <p>Your data stays with you in your browser. We neither keep any data nor keep track of your task. So you can save any data you want</p>
+    </div>
+    <div flex-sm="100"  flex-md="50" flex-lg="33" flex-gt-lg="33" layout="column" layout-align="start center" >
+        <div layout="row" layout-align="center center" class="featureIcon">
+            <i class="material-icons md-48">search</i>
+        </div>
+        <h2>Search</h2>
+        <p>Two many tasks ?? No worries, search helps you find anything easily</p>
+    </div>
+    <div flex-sm="100"  flex-md="50" flex-lg="33" flex-gt-lg="33" layout="column" layout-align="start center" >
+        <div layout="row" layout-align="center center" class="featureIcon">
+            <i class="material-icons md-48">filter_2</i>
+        </div>
+        <h2>2-Level Categorization</h2>
+        <p>Helps you organize thing better.</p>
+    </div>
+    <div flex-sm="100"  flex-md="50" flex-lg="33" flex-gt-lg="33" layout="column" layout-align="start center" >
+        <div layout="row" layout-align="center center" class="featureIcon">
+            <i class="material-icons md-48">security</i>
+        </div>
+        <h2>Secure & Fast</h2>
+        <p>Since your data always stays with your browser and has no data transfer to servers, its safe and fast.</p>
+    </div>
+</div>
+
+<div class="appDesc">
+    <h2><i class="material-icons">format_quote</i> Proper Planning and Preparation Prevents Poor Performance.<i class="material-icons">format_quote</i></h2>
+    <p>
+
+        <br />
+        Organizer helps you execute your planning by helping you keep track of your task.
+        You can save all your data to the app without fearing any security issue
+        because <em class="dottedUnderline"> all of your data stays with your browser</em>.
+    </p>
+</div>

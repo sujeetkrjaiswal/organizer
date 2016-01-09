@@ -1,0 +1,162 @@
+<section  ng-class="board.config.bgClass" class="appContainer" ng-controller="boardController">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <md-button class="md-warn" ng-click="goBack()">
+                <md-icon class="material-icons">arrow_back</md-icon> Boards
+            </md-button>
+            <span flex></span>
+            <md-input-container md-no-float class="md-accent" flex="50" style="padding-bottom:0px;margin-left:25px">
+                <md-icon style="color:wheat" class="material-icons">search</md-icon>
+                <input ng-model="searchInput" ng-change="search(searchInput)" placeholder="Search here" style="color:wheat;padding-left:25px;margin-left:5px">
+            </md-input-container>
+            <span flex></span>
+
+        </div>
+    </md-toolbar>
+    <div layout="column" layout-align="space-around stretch" layout-padding layout-wrap layout-fill ng-repeat="unitBoard in result">
+        <h2 class="searchBreadCrum">
+            <span ng-click="goBack()"> Boards </span>
+            <md-icon class="material-icons">keyboard_arrow_right</md-icon>
+            <span ng-bind="unitBoard.boardName" ng-click="loadBoard(unitBoard.boardKey)"></span>
+        </h2>
+        <div layout="row" layout-padding layout-wrap layout-fill>
+            <div  flex-sm="100"  flex-md="50" flex-lg="33" flex-gt-lg="33" layout="column" ng-repeat="unitTL in unitBoard.taskList" layout-align="center stretch">
+                <md-whiteframe class="md-whiteframe-5dp tlItem " layout="column" ng-class="unitTL.config.bgClass" >
+                    <div class="wid100">
+                        <div layout="row" layout-align="end center">
+                            <md-button class="md-icon-button" ng-click="askAddTask(unitTL)" aria-label="Add" >
+                                <md-icon class="material-icons md-18">add</md-icon>
+                                <md-tooltip md-direction="bottom">Add Task</md-tooltip>
+                            </md-button>
+                            <md-button class="md-icon-button" ng-click="enableEdit(unitTL)" aria-label="Edit" >
+                                <md-icon class="material-icons md-18">mode_edit</md-icon>
+                                <md-tooltip md-direction="bottom">Edit Task List Name</md-tooltip>
+                            </md-button>
+                            <md-button class="md-icon-button md-accent" aria-label="Delete" ng-click="askDeleteTL(unitTL)">
+                                <md-icon class="material-icons md-18">delete</md-icon>
+                                <md-tooltip md-direction="bottom">Delete Task List</md-tooltip>
+                            </md-button>
+                        </div>
+
+                        <div ng-if="unitTL.askDel" layout="column" layout-align="space-around stretch">
+                            <p>Are you sure to delete this task List. All the task under this will be permanently deleted.</p>
+                            <div layout="row" layout-align="space-around center">
+                                <md-button class="md-raised" ng-click="cancelDeleteTL(unitTL)">Keep It.</md-button>
+                                <md-button class="md-raised md-warn" ng-click="delTLConfirmed(unitTL)">I Don't Need It</md-button>
+                            </div>
+                            <br />
+                            <md-divider></md-divider>
+                        </div>
+                        <div>
+                            <h2 ng-if="!unitTL.isEditing" ng-dblclick="enableEdit(unitTL)" >
+                                <span ng-bind="unitTL.taskListName"></span>
+                                <md-tooltip md-direction="top">Double Click to edit</md-tooltip>
+                            </h2>
+                            <div ng-if="unitTL.isEditing" layout="column" layout-align="space-around stretch">
+                                <md-divider></md-divider>
+                                <div layout="row" layout-align="space-between center" claenableEditss="wid100">
+                                <span>
+                                    <strong> Editing : </strong>
+                                    <em ng-bind="unitTL.taskListName"></em>
+                                </span>
+                                    <md-button class="md-icon-button md-warn" aria-label="Edit" ng-click="CancellTlEdit(unitTL)">
+                                        <md-icon class="material-icons">cancel</md-icon>
+                                        <md-tooltip md-direction="bottom">Cancel Adding</md-tooltip>
+                                    </md-button>
+                                </div>
+                                <form name="{{unitTL.tlKey}}" layout="column" layout-align="start center" class="wid100">
+                                    <md-input-container class="md-block wid100">
+                                        <label>Task List Name</label>
+                                        <input required name="TLName" ng-model="unitTL.editedName">
+                                        <!--<div ng-messages="TLName.$error">-->
+                                        <!--<div ng-message="required">This is required.</div>-->
+                                        <!--</div>-->
+                                    </md-input-container>
+                                    <div layout="row" layout-align="space-around center">
+                                        <md-button class="md-raised md-primary"ng-click="saveEdited(unitTL);" >Save Edit</md-button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <md-divider></md-divider>
+                        <div layout="column" layout-align="space-inbetween center" class="wid100">
+
+                            <md-list-item ng-repeat="task in unitTL.tasks" class="taskContainer">
+                                <md-checkbox ng-model="task.isDone" ng-change="saveDoneStatus(task)"></md-checkbox>
+                                <p>{{task.taskName}}</p>
+                                <md-icon ng-if="!task.askDel" class="md-secondary material-icons" ng-click="askDelTask(task)" aria-label="delete task">clear</md-icon>
+                                <div ng-if="task.askDel" layout="row" layout-align="space-around center" class="taskConfirmDel">
+                                    <p>Detelte This </p>
+                                    <md-button class="md-raised" ng-click="cancelDelTask(task)" aria-label="don't Delete">Keep</md-button>
+                                    <md-button class="md-raised md-warn" ng-click="deleteTask(unitTL,task)" aria-label="delete this">
+                                        Delete
+                                        <md-icon class="material-icons">delete</md-icon>
+                                    </md-button>
+                                </div>
+                            </md-list-item>
+                            <div ng-if="!unitTL.tasks.length && !unitTL.addTask">
+
+                                <md-button class="md-fab md-mini md-primary" aria-label="Add Task" ng-click="askAddTask(unitTL)">
+                                    <md-icon class="material-icons">add</md-icon>
+                                    <md-tooltip md-direction="bottom">Add Task</md-tooltip>
+                                </md-button>
+                                No Tasks Available. Add One
+                            </div>
+                        </div>
+                        <div ng-if="unitTL.addTask" layout="column" layout-align="space-around stretch" class="editBG">
+                            <md-divider></md-divider>
+                            <div layout="row" layout-align="space-between center" class="wid100">
+                                <span>
+                                    <strong> Adding task : </strong>
+                                </span>
+                                <md-button class="md-icon-button md-warn" aria-label="Edit" ng-click="cancelTaskAdd(unitTL)">
+                                    <md-icon class="material-icons">cancel</md-icon>
+                                    <md-tooltip md-direction="bottom">Cancel Adding</md-tooltip>
+                                </md-button>
+                            </div>
+                            <form name="{{unitTL.tlKey}}" layout="column" layout-align="start center" class="wid100">
+                                <md-input-container class="md-block wid100">
+                                    <label>Enter your task</label>
+                                    <input required name="TLName" ng-model="unitTL.tempTaskName">
+                                    <!--<div ng-messages="TLName.$error">-->
+                                    <!--<div ng-message="required">This is required.</div>-->
+                                    <!--</div>-->
+                                </md-input-container>
+                                <div layout="row" layout-align="space-around center">
+                                    <md-button class="md-raised md-primary"ng-click="cnfedTaskAdd(unitTL);" >Save Edit</md-button>
+                                </div>
+                            </form>
+                            <md-divider></md-divider>
+                        </div>
+                        <div layout="row" layout-align="end center" >
+                            <md-fab-toolbar md-open="false" count=0
+                                            md-direction="left">
+                                <md-fab-trigger class="align-with-text">
+                                    <md-button aria-label="menu" class="md-fab md-primary">
+                                        <md-icon class="material-icons">color_lens</md-icon>
+                                        <md-tooltip md-direction="bottom">Change background color for this board</md-tooltip>
+                                    </md-button>
+                                </md-fab-trigger>
+                                <md-toolbar>
+                                    <md-fab-actions class="md-toolbar-tools">
+                                        <md-button aria-label="comment" class="md-icon-button" ng-repeat="colorObj in colorConfig"
+                                                   ng-click="changeListColor(unitTL,colorObj)">
+                                            <md-icon class="material-icons md-36" ng-class="colorObj.c">check_circle</md-icon>
+                                        </md-button>
+                                    </md-fab-actions>
+                                </md-toolbar>
+                            </md-fab-toolbar>
+
+                        </div>
+
+                    </div>
+
+
+                </md-whiteframe>
+            </div>
+        </div>
+        <md-divider></md-divider>
+    </div>
+
+</section>

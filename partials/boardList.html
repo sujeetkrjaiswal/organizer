@@ -1,0 +1,151 @@
+<section class="appContainer">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <md-menu>
+                <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                    <!--<md-icon md-menu-origin md-svg-icon="call:phone"></md-icon>-->
+                    <md-icon md-menu-origin class="material-icons">menu</md-icon>
+                </md-button>
+                <md-menu-content width="4">
+                    <md-menu-item>
+                        <md-button ng-click="welcomPage()">
+                            <md-icon md-menu-align-target class="material-icons">home</md-icon>
+                            Welcome Page
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="resetApp()">
+                            <md-icon md-menu-align-target class="material-icons">restore</md-icon>
+                            Reset This App
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item>
+                        <md-button href="http://sujeetjaiswal.com" target="_blank">
+                            <md-icon md-menu-align-target class="material-icons">launch</md-icon>
+                            About Developer
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+
+
+            </md-menu>
+            <!--<md-button class="md-warn" ng-click="resetApp()">Reset Everything</md-button>-->
+            <span flex></span>
+            <h1>
+                <md-icon class="material-icons">speaker_notes</md-icon>
+                &nbsp;&nbsp;<span class="bannerTitle">Organizer</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <!--<md-icon class="material-icons">view_module</md-icon>-->
+            </h1>
+            <span flex></span>
+            <md-button ng-click="takeToSearch()">
+                Search
+                <md-icon class="material-icons">search</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div layout="row" layout-padding layout-wrap layout-fill>
+        <div  flex-sm="100"  flex-md="50" flex-lg="33" flex-gt-lg="33" layout="column" ng-repeat="board in db" layout-align="center stretch">
+            <md-whiteframe class="md-whiteframe-5dp boardItem " layout="column" ng-class="board.config.bgClass" >
+                <div ng-if="!board.isEditing" class="wid100">
+                    <div layout="row" layout-align="space-between center" >
+                        <div layout="row" layout-align="start center">
+                            <md-button class="md-icon-button" aria-label="Edit" ng-click="loadBoard($index);">
+                                <md-icon class="material-icons md-18">list</md-icon>
+                                <span class="fw900" ng-bind="board.taskList.length"></span>
+                                <md-tooltip md-direction="bottom">Number of task List in this board</md-tooltip>
+                            </md-button>
+                        </div>
+                        <div layout="row" layout-align="end center">
+                            <md-button class="md-icon-button" aria-label="Edit" ng-click="edit(board)">
+                                <md-icon class="material-icons md-18">mode_edit</md-icon>
+                                <md-tooltip md-direction="bottom">Edit Board Name</md-tooltip>
+                            </md-button>
+                            <md-button class="md-icon-button md-accent" aria-label="Delete" ng-click="deleteBoard(board)">
+                                <md-icon class="material-icons md-18">delete</md-icon>
+                                <md-tooltip md-direction="bottom">Delete Board</md-tooltip>
+                            </md-button>
+                        </div>
+                    </div>
+
+                    <h2 ng-bind="board.boardName" ng-click="loadBoard($index);" class="clickable"></h2>
+
+                    <md-fab-toolbar md-open="false" count=0
+                                    md-direction="left">
+                        <md-fab-trigger class="align-with-text">
+                            <md-button aria-label="menu" class="md-fab md-primary">
+                                <md-icon class="material-icons">color_lens</md-icon>
+                                <md-tooltip md-direction="bottom">Change background color for this board</md-tooltip>
+                            </md-button>
+                        </md-fab-trigger>
+                        <md-toolbar>
+                            <md-fab-actions class="md-toolbar-tools">
+                                <md-button aria-label="comment" class="md-icon-button" ng-repeat="colorObj in colorConfig"
+                                           ng-click="changeBoardColor(board,colorObj)">
+                                    <md-icon class="material-icons md-36" ng-class="colorObj.c">check_circle</md-icon>
+                                </md-button>
+                            </md-fab-actions>
+                        </md-toolbar>
+                    </md-fab-toolbar>
+                </div>
+                <div ng-if="board.isEditing == 'edit'" class="wid100">
+                    <div layout="column" layout-align="center center">
+                        <div layout="row" layout-align="end center" class="wid100">
+                            <md-button class="md-icon-button md-warn" aria-label="Edit" ng-click="closeEdit(board);">
+                                <md-icon class="material-icons">cancel</md-icon>
+                                <md-tooltip md-direction="bottom">Cancel Editing</md-tooltip>
+                            </md-button>
+                        </div>
+                        <form name="boardForm" layout="column" layout-align="start center" class="wid100">
+                            <md-input-container class="md-block wid100">
+                                <label>Board Name</label>
+                                <input required name="boardNameInput" ng-model="board.tempName">
+                                <div ng-messages="boardForm.boardNameInput.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+                            <div layout="row" layout-align="space-around center">
+                                <md-button class="md-raised md-primary"ng-click="saveEditedBoard(board);" >Edit</md-button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div ng-if="board.isEditing == 'del'" class="wid100 padd15" layout="column" layout-align="center">
+                    <h1>Are you sure to delete ?</h1>
+                    <p>This will delete entire board and its tasks. Are you sure to continue? This operation can not be undone.</p>
+                    <md-button class="md-raised md-primary" ng-click="closeDel(board);">I want to keep this</md-button>
+                    <md-button class="md-raised md-warn" ng-click="deleteConfirmed($index)">Delete it. I dont want this</md-button>
+                </div>
+
+            </md-whiteframe>
+        </div>
+        <div  flex-sm="100"  flex-md="50" flex-lg="33" flex-gt-lg="33" layout="column" layout-align="center stretch">
+            <md-whiteframe ng-if="askUser.show" class="md-whiteframe-5dp boardINewtem cursorChange" layout="row" layout-align="center center" ng-click="askInputForAdd()">
+                <h1>
+                    Add New
+                    <md-icon class="material-icons">add_circle_outline</md-icon>
+                </h1>
+            </md-whiteframe>
+            <md-whiteframe ng-if="!askUser.show" class="md-whiteframe-5dp boardINewtem cursorChange" layout="column" layout-align="center center">
+                <div layout="row" layout-align="end center" class="wid100">
+                    <md-button class="md-icon-button md-warn" aria-label="Edit" ng-click="cancelAdd()">
+                        <md-icon class="material-icons">cancel</md-icon>
+                        <md-tooltip md-direction="bottom">Cancel Adding</md-tooltip>
+                    </md-button>
+                </div>
+                <form name="boardForm" layout="column" layout-align="start center" class="wid100">
+                    <md-input-container class="md-block wid100">
+                        <label>Board Name</label>
+                        <input required name="boardNameInput" ng-model="askUser.input">
+                        <div ng-messages="boardForm.boardNameInput.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                    <div layout="row" layout-align="space-around center">
+                        <md-button class="md-raised md-primary"ng-click="addNewBoard(askUser.input);" >Add</md-button>
+                    </div>
+                </form>
+            </md-whiteframe>
+        </div>
+    </div>
+</section>
